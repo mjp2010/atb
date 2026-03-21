@@ -121,7 +121,7 @@ export default function HomePage() {
               alt="Mother looking at her baby"
               fill
               className="object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKERv3eW6FiPmpIe8nj78aSaTpU-fhUy7TQSrFOo5J5f5k4KsjOY617hLh9Rn-68V_A_9np39stZA5TRh7M2Bn09REqfQeKYup2kwiHiGAaryRvQn9BQxfA6b34QLlIJ5kadg_SiTO2xm2OWkoCri5L96-LwPhAG_yYoO6fJqF2NbA2oeK4YpKezAOUjUr7DRGLSElMSFR-uzWxKwi4ReXKVI3zTqWtIq6GLh-hF_Htjj_SEzj0BylhqUPy8Qgz5Bd_wt3ZYs62Zg"
+              src="/images/what-to-expect.jpg"
               sizes="(max-width: 768px) 100vw, 448px"
             />
           </motion.div>
