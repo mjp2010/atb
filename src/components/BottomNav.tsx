@@ -60,29 +60,12 @@ export function BottomNav() {
             const isActive = pathname === item.path;
             const Icon = item.icon;
 
-            if (item.id === 'experts') {
-              return (
-                <motion.button
-                  key={item.id}
-                  onClick={() => router.push(item.path)}
-                  whileTap={{ scale: 0.92 }}
-                  className="relative flex items-center justify-center w-14 h-14 bg-[#557161] rounded-full shadow-lg -translate-y-1 mb-1 focus:outline-none"
-                  aria-label={item.label}
-                >
-                  <Icon size={24} className="text-white" strokeWidth={2.5} />
-                  {isActive && (
-                    <motion.div layoutId="nav-active-expert" className="absolute inset-0 rounded-full ring-4 ring-[#557161]/20" />
-                  )}
-                </motion.button>
-              );
-            }
-
             return (
               <motion.button
                 key={item.id}
                 onClick={() => router.push(item.path)}
                 whileTap={{ scale: 0.9 }}
-                className="flex flex-col items-center justify-center gap-1.5 min-w-[3.5rem] py-1 focus:outline-none relative"
+                className="flex flex-col items-center justify-center gap-1.5 min-w-[3.5rem] py-1 focus:outline-none relative flex-1"
                 aria-label={item.label}
               >
                 <div className={`transition-colors duration-200 ${isActive ? 'text-[#557161]' : 'text-[#8c9490]'}`}>
