@@ -56,7 +56,12 @@ export default function OnboardingPage() {
         </div>
       </header>
 
-      <main className="flex-grow flex flex-col justify-center items-center px-8 pb-32 max-w-2xl mx-auto w-full">
+      <main className="flex-grow flex flex-col justify-start items-center px-8 pt-6 pb-48 max-w-2xl mx-auto w-full">
+        <div className="flex flex-col items-center mb-4">
+          <p className="text-xs font-label uppercase tracking-widest text-atb-outline font-bold opacity-80">
+            Step {step} of 3
+          </p>
+        </div>
         {/* Progress bar */}
         <div className="w-full flex gap-3 mb-10 max-w-xs">
           {[1, 2, 3].map((n) => (
@@ -94,7 +99,7 @@ export default function OnboardingPage() {
                     onClick={() => setJourney(opt.id)}
                     whileTap={{ scale: 0.98 }}
                     className={`group relative flex flex-col items-center p-8 rounded-3xl bg-atb-surface-lowest transition-all duration-300 border-2 text-center focus:outline-none shadow-sm ${
-                      journey === opt.id ? 'border-atb-primary bg-atb-primary-container bg-opacity-10' : 'border-transparent hover:border-atb-primary hover:border-opacity-20'
+                      journey === opt.id ? 'border-atb-primary !bg-white dark:!bg-[#1a1c1a]' : 'border-transparent hover:border-atb-primary hover:border-opacity-20'
                     }`}
                   >
                     <div className="relative mb-6">
@@ -220,11 +225,6 @@ export default function OnboardingPage() {
                 Maybe Later
               </motion.button>
             )}
-            <div className="flex flex-col items-center mt-2">
-              <p className="text-xs font-label uppercase tracking-widest text-atb-outline opacity-60">
-                Step {step} of 3
-              </p>
-            </div>
           </div>
         </div>
       </main>
