@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { motion } from 'motion/react';
 import { Share2, CheckCircle2, ChevronRight, Sparkles, ImagePlus, Filter, Camera, Star, Heart, UserPlus, Users, Plus, BookOpen } from 'lucide-react';
-import { BottomNav } from '@/components/BottomNav';
 import Image from 'next/image';
 
 const milestones = [
@@ -238,7 +237,6 @@ export default function TimelinePage() {
    <Plus size={26} strokeWidth={2.5} />
  </motion.button>
 
- <BottomNav />
  </div>
  );
 }

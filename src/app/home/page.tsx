@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { motion } from 'motion/react';
 import { BadgeCheck, ArrowRight, ShoppingCart, UtensilsCrossed, Moon, Baby, HeartPulse, Star } from 'lucide-react';
-import { BottomNav } from '@/components/BottomNav';
 import Image from 'next/image';
 
 const dailyLogs = [
@@ -194,7 +193,6 @@ export default function HomePage() {
         </section>
 
       </main>
-      <BottomNav />
     </div>
   );
 }

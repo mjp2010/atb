@@ -4,5 +4,6 @@
   "/page": "app/page.js",
   "/onboarding/page": "app/onboarding/page.js",
   "/home/page": "app/home/page.js",
-  "/shop/page": "app/shop/page.js"
+  "/shop/page": "app/shop/page.js",
+  "/timeline/page": "app/timeline/page.js"
 }

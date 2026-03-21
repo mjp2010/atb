@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import { Bot, BadgeCheck, RotateCcw, CheckCircle2, ArrowRight, BookOpen, Send, Headset } from 'lucide-react';
-import { BottomNav } from '@/components/BottomNav';
 import Image from 'next/image';
 
 const recentQuestions = [
@@ -198,8 +197,6 @@ export default function AICoachPage() {
         </div>
 
       </main>
-      
-      <BottomNav />
     </div>
   );
 }

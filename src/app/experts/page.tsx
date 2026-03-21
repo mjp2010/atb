@@ -5,7 +5,6 @@ import {
   BadgeCheck, Stethoscope, Baby, Apple, Activity,
   Star, Video, MessageCircle, Globe, ShieldCheck, Headset
 } from 'lucide-react';
-import { BottomNav } from '@/components/BottomNav';
 import Image from 'next/image';
 
 const categories = [
@@ -209,8 +208,6 @@ export default function ExpertsPage() {
           })}
         </section>
       </main>
-
-      <BottomNav />
     </div>
   );
 }

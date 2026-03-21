@@ -7,7 +7,6 @@ import {
   MapPin, ArrowRight, Hand, Eye, Brain, ChevronRight,
   Snowflake, Quote, MessageCircle
 } from 'lucide-react';
-import { BottomNav } from '@/components/BottomNav';
 import Image from 'next/image';
 
 const moreProducts = [
@@ -276,8 +275,6 @@ export default function ShopPage() {
         </section>
 
       </main>
-
-      <BottomNav />
     </div>
   );
 }
