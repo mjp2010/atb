@@ -1,0 +1,8 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/shop/page": "app/shop/page.js",
+  "/experts/page": "app/experts/page.js",
+  "/product/page": "app/product/page.js",
+  "/aicoach/page": "app/aicoach/page.js",
+  "/premium/page": "app/premium/page.js"
+}

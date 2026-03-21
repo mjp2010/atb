@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+@layer base {
+  :root {
+    /* Light mode tokens */
+    --color-primary: 73 100 89;
+    --color-primary-container: 136 164 152;
+    --color-secondary: 126 84 65;
+    --color-secondary-container: 253 197 173;
+    --color-background: 250 249 246;
+    --color-surface: 250 249 246;
+    --color-surface-variant: 227 226 224;
+    --color-surface-container-lowest: 255 255 255;
+    --color-surface-container-low: 244 244 241;
+    --color-surface-container: 238 238 235;
+    --color-surface-container-high: 233 232 229;
+    --color-surface-container-highest: 227 226 224;
+    --color-on-background: 26 28 26;
+    --color-on-surface: 26 28 26;
+    --color-on-surface-variant: 66 72 69;
+    --color-outline: 114 120 117;
+    --color-outline-variant: 194 200 196;
+    --color-primary-fixed: 204 231 220;
+    --color-secondary-fixed: 255 219 204;
+  }
+
+  .dark {
+    /* Dark mode tokens */
+    --color-primary: 136 164 152;
+    --color-primary-container: 73 100 89;
+    --color-secondary: 253 197 173;
+    --color-secondary-container: 100 66 51;
+    --color-background: 17 21 18;
+    --color-surface: 17 21 18;
+    --color-surface-variant: 66 72 69;
+    --color-surface-container-lowest: 12 16 13;
+    --color-surface-container-low: 26 33 28;
+    --color-surface-container: 30 39 34;
+    --color-surface-container-high: 40 51 45;
+    --color-surface-container-highest: 52 66 59;
+    --color-on-background: 226 227 223;
+    --color-on-surface: 226 227 223;
+    --color-on-surface-variant: 194 200 196;
+    --color-outline: 140 148 144;
+    --color-outline-variant: 66 72 69;
+    --color-primary-fixed: 32 58 49;
+    --color-secondary-fixed: 80 53 41;
+  }
+
+  * {
+    @apply border-outline-variant;
+  }
+
+  html {
+    @apply scroll-smooth;
+    -webkit-tap-highlight-color: transparent;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  body {
+    @apply bg-white text-slate-900 font-body antialiased;
+    background-color: rgb(var(--color-background));
+    color: rgb(var(--color-on-background));
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Noto Serif', serif;
+  }
+}
+
+@layer components {
+  /* Design token utility classes */
+  .bg-atb-background { background-color: rgb(var(--color-background)); }
+  .bg-atb-surface { background-color: rgb(var(--color-surface)); }
+  .bg-atb-surface-variant { background-color: rgb(var(--color-surface-variant)); }
+  .bg-atb-surface-lowest { background-color: rgb(var(--color-surface-container-lowest)); }
+  .bg-atb-surface-low { background-color: rgb(var(--color-surface-container-low)); }
+  .bg-atb-surface-container { background-color: rgb(var(--color-surface-container)); }
+  .bg-atb-surface-high { background-color: rgb(var(--color-surface-container-high)); }
+  .bg-atb-surface-highest { background-color: rgb(var(--color-surface-container-highest)); }
+  .bg-atb-primary { background-color: rgb(var(--color-primary)); }
+  .bg-atb-primary-container { background-color: rgb(var(--color-primary-container)); }
+  .bg-atb-secondary { background-color: rgb(var(--color-secondary)); }
+  .bg-atb-secondary-container { background-color: rgb(var(--color-secondary-container)); }
+  .bg-atb-primary-fixed { background-color: rgb(var(--color-primary-fixed)); }
+  .bg-atb-secondary-fixed { background-color: rgb(var(--color-secondary-fixed)); }
+
+  .text-atb-on-background { color: rgb(var(--color-on-background)); }
+  .text-atb-on-surface { color: rgb(var(--color-on-surface)); }
+  .text-atb-on-surface-variant { color: rgb(var(--color-on-surface-variant)); }
+  .text-atb-primary { color: rgb(var(--color-primary)); }
+  .text-atb-primary-container { color: rgb(var(--color-primary-container)); }
+  .text-atb-secondary { color: rgb(var(--color-secondary)); }
+  .text-atb-secondary-container { color: rgb(var(--color-secondary-container)); }
+  .text-atb-outline { color: rgb(var(--color-outline)); }
+  .text-atb-outline-variant { color: rgb(var(--color-outline-variant)); }
+
+  .border-atb-outline { border-color: rgb(var(--color-outline)); }
+  .border-atb-outline-variant { border-color: rgb(var(--color-outline-variant)); }
+  .border-atb-primary { border-color: rgb(var(--color-primary)); }
+}
+
+@layer utilities {
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Focus ring consistent with design system */
+  .focus-ring {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    --tw-ring-color: rgb(var(--color-primary));
+  }
+}
