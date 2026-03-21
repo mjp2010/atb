@@ -69,7 +69,7 @@ export default function ShopPage() {
             </div>
 
             <div className="relative w-full aspect-square mb-6 mix-blend-multiply">
-              <Image alt="Teething Ring" fill className="object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWfSOD5Lad5LpWjSty5p1xKSQQmRqnTRbVUQPUtyWz6V9Dc1lDNWQeJBlXx8BL3pvI5A_rJlFjHOHcNwFiKwW4Bw1GsqUSYlT_ZiCJwqheJNdFMq12fX2rCuSIZW4_SzKOKp38b_FPubFVczSE6JJprVTzd7YqLcU8KKfTvjKLmNBEKq5pPFSkup6BZyR_AkznfSOJeoPxbiPjz1LVQ2pERrKPYxCqGHDzoxWxKy6bObjdQQIDkZnelG4rdSh8AFFJ7SCNuuV7ido" sizes="(max-width: 768px) 100vw, 400px" />
+              <Image alt="Teething Ring" fill className="object-contain" src="/images/teething-ring.png" sizes="(max-width: 768px) 100vw, 400px" />
             </div>
 
             <div className="flex justify-between items-start mb-2">
