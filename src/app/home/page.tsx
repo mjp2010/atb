@@ -161,6 +161,7 @@ export default function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             whileTap={{ scale: 0.98 }}
+            onClick={() => router.push('/product')}
             className="bg-[#f4f2ec] p-5 rounded-[2.2rem] flex gap-5 shadow-sm hover:shadow-md cursor-pointer transition-shadow ring-1 ring-[#e3e2e0]/50"
           >
             <div className="w-24 h-24 rounded-2xl bg-white shrink-0 relative shadow-sm flex items-center justify-center p-4 overflow-hidden ring-1 ring-black/5">
@@ -183,7 +184,7 @@ export default function HomePage() {
                 BPA-free medical grade silicone. Perfect for Aarav's early motor skill development.
               </p>
               <div className="flex items-center justify-between mt-4">
-                <span className="font-body font-bold text-[#496459] text-[16px]">₹14.00</span>
+                <span className="font-body font-bold text-[#496459] text-[16px]">₹320.00</span>
                 <button className="text-[#496459] hover:opacity-70 transition-opacity p-1">
                   <ShoppingCart size={20} strokeWidth={2.5} />
                 </button>

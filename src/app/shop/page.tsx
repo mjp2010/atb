@@ -57,7 +57,8 @@ export default function ShopPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="bg-[#f9f8f6] rounded-[2.5rem] p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] ring-1 ring-[#e3e2e0]"
+            onClick={() => router.push('/product')}
+            className="bg-[#f9f8f6] rounded-[2.5rem] p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] ring-1 ring-[#e3e2e0] cursor-pointer"
           >
             <div className="flex flex-wrap gap-2 mb-6">
               <span className="bg-white ring-1 ring-black/5 font-label text-[8px] font-extrabold uppercase tracking-widest text-[#4a4a4a] px-3 py-1.5 rounded-full flex items-center gap-1.5">
@@ -112,11 +113,11 @@ export default function ShopPage() {
               </p>
             </div>
 
-            <motion.button whileTap={{ scale: 0.98 }} className="w-full bg-[#557161] hover:bg-[#496459] transition-colors text-white rounded-full py-4 font-label text-[11px] font-extrabold uppercase tracking-[0.15em] mb-4 shadow-md">
-              ADD TO CART — ₹18.00
+            <motion.button whileTap={{ scale: 0.98 }} className="w-full bg-[#557161] hover:bg-[#496459] transition-colors text-white rounded-full py-4 font-label text-[11px] font-extrabold uppercase tracking-[0.15em] mb-4 shadow-md leading-none">
+              ADD TO CART — ₹320.00
             </motion.button>
-            <p className="text-center font-label text-[8.5px] font-extrabold uppercase tracking-[0.15em] text-[#8c9490] cursor-pointer hover:text-[#557161]">
-              READ EXPERT REVIEW
+            <p className="text-center font-label text-[8.5px] font-extrabold uppercase tracking-[0.15em] text-[#8c9490]">
+              VIEW EXPERT REVIEW
             </p>
           </motion.div>
         </section>
