@@ -43,7 +43,7 @@ export default function HomePage() {
                 alt="4-month-old baby smiling"
                 fill
                 className="object-contain object-bottom scale-95 origin-bottom"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcWDWEEaOTQ5Xglak0kgF1hIidESUT_dxUuH0CPMNljDfsgyuHC0VyUohbt99CvidXqQeypZJkL1WpDfuuRsMF9Fcd9XoRGHb9nC_uZa3DpUp4QFtF3YRKM7msJCcuHKLXfMgzPxQbgVK4Kv6e7TTaB1ZA7RBQ3thWfBjzR8anxZYepR1UN84MxuofsmByeekAwk0MIxbtS61F1I9eeyjk5XET_Cnt-9rzrfXxl-lxSbBn0WNV5C42o3k6S96Ef5HD5S6wPilB7eg"
+                src="/images/tummy-time.jpg"
                 sizes="(max-width: 768px) 100vw, 448px"
                 priority
               />
