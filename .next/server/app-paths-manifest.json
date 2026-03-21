@@ -3,6 +3,6 @@
   "/aicoach/page": "app/aicoach/page.js",
   "/premium/page": "app/premium/page.js",
   "/page": "app/page.js",
-  "/onboarding/page": "app/onboarding/page.js",
-  "/home/page": "app/home/page.js"
+  "/home/page": "app/home/page.js",
+  "/onboarding/page": "app/onboarding/page.js"
 }

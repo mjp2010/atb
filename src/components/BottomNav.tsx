@@ -46,7 +46,7 @@ export function BottomNav() {
    initial={{ y: 0 }}
    animate={{ y: hidden ? 120 : 0 }}
    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-   className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-md flex justify-between items-center px-3 py-2 bg-white dark:bg-[#1a1c1a] bg-opacity-[0.97] dark:bg-opacity-95 backdrop-blur-2xl rounded-[2rem] z-50 shadow-[0_12px_40px_rgb(0,0,0,0.15)] dark:shadow-[0_12px_40px_rgb(0,0,0,0.4)]"
+   className="fixed bottom-6 left-1/2 -translate-x-1/2 w-auto flex justify-center gap-1 items-center px-3 py-2 bg-white dark:bg-[#1a1c1a] bg-opacity-[0.97] dark:bg-opacity-95 backdrop-blur-2xl rounded-full z-50 shadow-[0_12px_40px_rgb(0,0,0,0.15)] dark:shadow-[0_12px_40px_rgb(0,0,0,0.4)]"
  >
  {navItems.map((item) => {
  const isActive = pathname === item.path;
