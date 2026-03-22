@@ -21,10 +21,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
  useEffect(() => {
  setMounted(true);
  const stored = localStorage.getItem('atb-theme') as Theme | null;
- const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
- const initial = stored ?? (prefersDark ? 'dark' : 'light');
- setTheme(initial);
- applyTheme(initial);
+    const initial = stored ?? 'light';
+    setTheme(initial);
+    applyTheme(initial);
  }, []);
 
  const applyTheme = (t: Theme) => {

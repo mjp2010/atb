@@ -2,7 +2,9 @@
   "/_not-found/page": "app/_not-found/page.js",
   "/onboarding/page": "app/onboarding/page.js",
   "/home/page": "app/home/page.js",
-  "/shop/page": "app/shop/page.js",
+  "/aicoach/page": "app/aicoach/page.js",
+  "/experts/page": "app/experts/page.js",
+  "/product/page": "app/product/page.js",
   "/timeline/page": "app/timeline/page.js",
-  "/aicoach/page": "app/aicoach/page.js"
+  "/shop/page": "app/shop/page.js"
 }
