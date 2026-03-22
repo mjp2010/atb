@@ -1,12 +1,37 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'motion/react';
-import { ArrowLeft, Heart, Share2, Star, Sparkles, AlertCircle, CheckCircle2, ShieldCheck, Award, ThumbsUp } from 'lucide-react';
+import { ArrowLeft, Heart, Share2, Star, Sparkles, AlertCircle, CheckCircle2, ShieldCheck, Award, ThumbsUp, Droplet, Zap } from 'lucide-react';
 import Image from 'next/image';
+import { getProductBySlug } from '@/data/products';
+import { useEffect, useState } from 'react';
 
 export default function ProductPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const productSlug = searchParams.get('slug') || 'heirloom-organic-swaddle';
+  const [product, setProduct] = useState<any>(null);
+  const [selectedImage, setSelectedImage] = useState(0);
+
+  useEffect(() => {
+    const prod = getProductBySlug(productSlug);
+    setProduct(prod);
+  }, [productSlug]);
+
+  if (!product) {
+    return (
+      <div className="min-h-screen bg-[#faf9f6] flex items-center justify-center">
+        <p className="text-[#1a1c1a]">Loading...</p>
+      </div>
+    );
+  }
+
+  const formatPrice = (price: number, currency: string) => {
+    if (currency === 'USD') return `₹${price.toFixed(2)}`;
+    if (currency === 'INR') return `₹${price}`;
+    return `${currency} ${price}`;
+  };
 
   return (
     <div className="min-h-screen bg-[#faf9f6] pb-24 font-body text-[#1a1c1a]">
@@ -30,47 +55,60 @@ export default function ProductPage() {
       <main className="max-w-md mx-auto pt-20">
         {/* Hero Section */}
         <section className="px-6 py-4">
-          <div className="relative aspect-square w-full rounded-[2.5rem] bg-[#f2e6d8] overflow-hidden shadow-sm mb-6 flex items-center justify-center">
+          <div className="relative aspect-square w-full rounded-[2.5rem] bg-[#f0e9dc] overflow-hidden shadow-sm mb-6 flex items-center justify-center">
             <div className="absolute top-6 left-6 z-10 bg-white px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm ring-1 ring-black/5">
               <ShieldCheck size={14} className="text-[#557161]" />
-              <span className="font-label text-[9px] font-extrabold uppercase tracking-widest text-[#1a1c1a]">SAFETY CERTIFIED</span>
+              <span className="font-label text-[9px] font-extrabold uppercase tracking-widest text-[#1a1c1a]">{product.availability}</span>
             </div>
-            <div className="relative w-4/5 h-4/5 mix-blend-multiply">
+            <div className="relative w-full h-full">
               <Image
-                alt="Safety-First Teething Ring"
+                alt={product.title}
                 fill
-                className="object-contain"
-                src="/images/teether-blue.png"
+                className="object-cover"
+                src={product.images[selectedImage] || product.main_image}
                 sizes="400px"
                 priority
               />
             </div>
           </div>
           
-          {/* Thumbnails */}
-          <div className="flex gap-4 mb-8 overflow-x-auto pb-2 scrollbar-hide">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className={`w-20 h-20 rounded-2xl flex-shrink-0 flex items-center justify-center ring-2 transition-all ${i === 1 ? 'ring-[#557161] bg-[#e7eee9]' : 'ring-black/5 bg-[#eff0ed]'}`}>
-                <div className="relative w-12 h-12 mix-blend-multiply opacity-60">
-                  <Image alt={`Thumb ${i}`} fill className="object-contain" src="/images/teether-blue.png" sizes="48px" />
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* Image Thumbnails */}
+          {product.images && product.images.length > 1 && (
+            <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
+              {product.images.map((img: string, idx: number) => (
+                <motion.button
+                  key={idx}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setSelectedImage(idx)}
+                  className={`w-14 h-14 rounded-lg flex-shrink-0 overflow-hidden border-2 transition-all ${
+                    selectedImage === idx ? 'border-[#557161]' : 'border-transparent'
+                  }`}
+                >
+                  <Image
+                    alt={`View ${idx + 1}`}
+                    width={56}
+                    height={56}
+                    className="w-full h-full object-cover"
+                    src={img}
+                  />
+                </motion.button>
+              ))}
+            </div>
+          )}
         </section>
 
         {/* AI Assistant Section */}
         <section className="px-4 mb-8">
           <div className="bg-white rounded-[2rem] p-6 shadow-sm border border-black/5">
             <div className="flex items-center gap-2 mb-4">
-              <h3 className="font-headline text-[18px] font-bold text-[#1a1c1a]">AI Teether Assistant</h3>
+              <h3 className="font-headline text-[18px] font-bold text-[#1a1c1a]">AI Product Assistant</h3>
               <span className="bg-[#e7eee9] text-[#557161] text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">ACTIVE</span>
             </div>
             <p className="text-[13px] text-[#6f7a74] mb-6 leading-relaxed">
-              Ask personalized questions about relief for your 4-month-old's specific needs.
+              Ask personalized questions about {product.title} and whether it's right for your baby's specific needs.
             </p>
             <div className="space-y-3">
-              {['Is this safe for overnight?', 'Any better alternatives?'].map((q) => (
+              {['Is this product safe for newborns?', 'How often can I use this?'].map((q) => (
                 <button key={q} className="w-full text-left px-5 py-3.5 bg-[#faf9f6] rounded-2xl text-[13px] text-[#1a1c1a] border border-black/5 hover:bg-[#eff0ed] transition-colors">
                   {q}
                 </button>
@@ -95,9 +133,9 @@ export default function ProductPage() {
                 <Sparkles size={18} className="text-[#a55a4d]" />
               </div>
               <div>
-                <h4 className="font-bold text-[14px] text-[#1a1c1a] mb-2 leading-tight">Most parents at your stage choose this.</h4>
+                <h4 className="font-bold text-[14px] text-[#1a1c1a] mb-2 leading-tight">Recommended by experts.</h4>
                 <p className="text-[12.5px] text-[#a55a4d] opacity-90 leading-relaxed max-w-[240px]">
-                  84% of parents with 4-month-olds prefer this silicone teether for transitioning to intentional grasping.
+                  Thousands of parents trust {product.brand} products for quality and safety. Rated {product.rating} stars by {product.reviews_count}+ customers.
                 </p>
               </div>
             </div>
@@ -109,12 +147,12 @@ export default function ProductPage() {
 
         {/* Product Details Header */}
         <section className="px-6 mb-8">
-          <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#8c9490] mb-2 block">SENSORY DEVELOPMENT</span>
-          <h1 className="font-headline text-[32px] font-bold text-[#1a1c1a] leading-tight mb-2">Safety-First Teething Ring</h1>
+          <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#8c9490] mb-2 block">{product.category}</span>
+          <h1 className="font-headline text-[32px] font-bold text-[#1a1c1a] leading-tight mb-2">{product.title}</h1>
           <div className="flex items-baseline gap-4 mb-4">
-            <span className="font-headline text-2xl font-bold text-[#1a1c1a]">₹320.00</span>
+            <span className="font-headline text-2xl font-bold text-[#1a1c1a]">{formatPrice(product.price.selling_price, product.price.currency)}</span>
             <div className="flex items-center gap-1.5 text-[12px] font-bold text-[#1a1c1a]">
-              <Star size={14} className="text-[#fbdac9]" fill="#fbdac9" /> 4.9 (128 reviews)
+              <Star size={14} className="text-[#fbdac9]" fill="#fbdac9" /> {product.rating} ({product.reviews_count} reviews)
             </div>
           </div>
         </section>
@@ -122,20 +160,15 @@ export default function ProductPage() {
         {/* Why this is right */}
         <section className="px-4 mb-10">
           <div className="bg-[#f4f2ec] rounded-[2.2rem] p-8">
-            <h3 className="font-headline text-[20px] font-bold text-[#1a1c1a] mb-6">Why this is right</h3>
+            <h3 className="font-headline text-[20px] font-bold text-[#1a1c1a] mb-6">Key Highlights</h3>
             <div className="space-y-6">
-              {[
-                { title: 'BPA-Free Silicone', desc: '100% food-grade material, safe for constant oral exploration.' },
-                { title: 'Textured Surface', desc: 'Varied bumps provide satisfying resistance for sore gums.' },
-                { title: 'Ergonomic Grip', desc: 'Circular design optimized for 4-month palmar grasp reflex.' }
-              ].map((item) => (
-                <div key={item.title} className="flex gap-4">
+              {product.highlights.map((highlight: string, idx: number) => (
+                <div key={idx} className="flex gap-4">
                   <div className="shrink-0 mt-1">
                     <CheckCircle2 size={20} className="text-[#557161]" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-[14px] text-[#1a1c1a] mb-1">{item.title}</h4>
-                    <p className="text-[12.5px] text-[#6f7a74] leading-relaxed">{item.desc}</p>
+                    <p className="text-[13px] text-[#6f7a74] leading-relaxed">{highlight}</p>
                   </div>
                 </div>
               ))}
@@ -143,55 +176,137 @@ export default function ProductPage() {
           </div>
         </section>
 
+        {/* Certifications */}
+        {product.certifications && product.certifications.length > 0 && (
+          <section className="px-6 mb-10">
+            <h3 className="font-headline text-[20px] font-bold text-[#1a1c1a] mb-6">Certifications & Standards</h3>
+            <div className="grid grid-cols-2 gap-4">
+              {product.certifications.map((cert: string, idx: number) => (
+                <div key={idx} className="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6 flex flex-col items-center text-center">
+                  <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-3">
+                    <ShieldCheck size={24} className="text-blue-700" />
+                  </div>
+                  <p className="font-bold text-[13px] text-blue-900">{cert}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Milestone Progress */}
         <section className="px-4 mb-10">
           <div className="bg-white rounded-[2.2rem] p-8 border border-black/5 shadow-sm">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="font-bold text-[16px] text-[#1a1c1a]">Milestone Progress</h3>
-              <span className="text-[11px] text-[#8c9490]">Stage: Early Teething</span>
+              <h3 className="font-bold text-[16px] text-[#1a1c1a]">Product Details</h3>
             </div>
-            <div className="space-y-2 mb-6 text-[12px] font-bold uppercase tracking-wider text-[#1a1c1a]">
-              <div className="flex justify-between mb-2">
-                <span>Relief Consistency</span>
-                <span>75%</span>
+            <div className="space-y-4 mb-6">
+              <div className="flex justify-between py-2 border-b border-black/5">
+                <span className="text-[13px] text-[#6f7a74] font-medium">Brand</span>
+                <span className="text-[13px] font-bold text-[#1a1c1a]">{product.brand}</span>
               </div>
-              <div className="w-full h-2 bg-[#eff0ed] rounded-full overflow-hidden">
-                <div className="w-[75%] h-full bg-[#557161]" />
+              <div className="flex justify-between py-2 border-b border-black/5">
+                <span className="text-[13px] text-[#6f7a74] font-medium">Product Type</span>
+                <span className="text-[13px] font-bold text-[#1a1c1a]">{product.product_type}</span>
+              </div>
+              <div className="flex justify-between py-2 border-b border-black/5">
+                <span className="text-[13px] text-[#6f7a74] font-medium">Variant</span>
+                <span className="text-[13px] font-bold text-[#1a1c1a]">{product.variant}</span>
+              </div>
+              <div className="flex justify-between py-2 border-b border-black/5">
+                <span className="text-[13px] text-[#6f7a74] font-medium">SKU</span>
+                <span className="text-[13px] font-bold text-[#1a1c1a]">{product.sku}</span>
+              </div>
+              <div className="flex justify-between py-2">
+                <span className="text-[13px] text-[#6f7a74] font-medium">Availability</span>
+                <span className="text-[13px] font-bold text-[#557161]">{product.availability}</span>
               </div>
             </div>
-            <p className="text-[12px] italic text-[#6f7a74] leading-relaxed mb-6">
-              This product aligns with the "Oral Discovery" function phase common at 12–18 weeks.
-            </p>
-            <button className="w-full py-4 bg-[#557161] text-white rounded-full font-bold text-[10px] uppercase tracking-widest shadow-md">
-              Track Teething Milestones
-            </button>
           </div>
         </section>
 
-        {/* Expert Verification */}
-        <section className="px-6 mb-16">
-          <div className="flex justify-between items-end mb-8">
-            <h3 className="font-headline text-[26px] font-bold text-[#1a1c1a] leading-tight">Expert<br/>Verification</h3>
-            <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#8c9490]">TRUST & QUALITY</span>
+        {/* Description */}
+        {product.description && (
+          <section className="px-6 mb-10">
+            <h3 className="font-headline text-[20px] font-bold text-[#1a1c1a] mb-4">About This Product</h3>
+            <p className="text-[13.5px] text-[#6f7a74] leading-relaxed">{product.description}</p>
+          </section>
+        )}
+
+        {/* Benefits */}
+        {product.benefits && product.benefits.length > 0 && (
+          <section className="px-6 mb-10">
+            <h3 className="font-headline text-[20px] font-bold text-[#1a1c1a] mb-4">Benefits</h3>
+            <div className="space-y-3">
+              {product.benefits.map((benefit: string, idx: number) => (
+                <div key={idx} className="flex gap-3 items-start">
+                  <Droplet size={18} className="text-[#557161] shrink-0 mt-1" />
+                  <p className="text-[13px] text-[#6f7a74] leading-relaxed">{benefit}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Usage Instructions */}
+        {product.usage && product.usage.length > 0 && (
+          <section className="px-6 mb-10">
+            <h3 className="font-headline text-[20px] font-bold text-[#1a1c1a] mb-4">How to Use</h3>
+            <ol className="space-y-3">
+              {product.usage.map((step: string, idx: number) => (
+                <li key={idx} className="flex gap-3">
+                  <span className="font-bold text-[#557161] text-[14px] shrink-0">{idx + 1}.</span>
+                  <p className="text-[13px] text-[#6f7a74] leading-relaxed">{step}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        {/* Ingredients */}
+        {product.ingredients && product.ingredients.length > 0 && (
+          <section className="px-6 mb-10">
+            <h3 className="font-headline text-[20px] font-bold text-[#1a1c1a] mb-4">Ingredients</h3>
+            <div className="bg-[#f4f2ec] rounded-[1.5rem] p-6">
+              <p className="text-[13px] text-[#6f7a74] leading-relaxed">{product.ingredients.join(', ')}</p>
+            </div>
+          </section>
+        )}
+
+        {/* Safety Information */}
+        {product.safety && product.safety.length > 0 && (
+          <section className="px-6 mb-10">
+            <h3 className="font-headline text-[20px] font-bold text-[#1a1c1a] mb-4">Safety Information</h3>
+            <div className="space-y-3">
+              {product.safety.map((item: string, idx: number) => (
+                <div key={idx} className="flex gap-3 items-start bg-[#e7eee9] rounded-lg p-4">
+                  <Zap size={18} className="text-[#557161] shrink-0 mt-0.5" />
+                  <p className="text-[13px] text-[#6f7a74] leading-relaxed">{item}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Additional Info Sections */}
+        <section className="px-6 mb-16 space-y-6">
+          <div className="flex gap-4 items-start">
+            <div className="w-8 h-8 rounded-full bg-[#faf9f6] flex items-center justify-center shrink-0 mt-1">
+              <ShieldCheck size={18} className="text-[#557161]" />
+            </div>
+            <div>
+              <h4 className="font-bold text-[14px] text-[#1a1c1a] mb-1">Expert Verified</h4>
+              <p className="text-[12px] text-[#6f7a74]">Tested and recommended by child development experts.</p>
+            </div>
           </div>
           
-          <div className="space-y-4">
-            {[
-              { icon: ShieldCheck, title: '15+ Years Experience', desc: 'Crafted by neonatal experts and child development consultants.' },
-              { icon: Award, title: 'Safety Certified', desc: 'Exceeds all global safety standards for infant toys.' },
-              { icon: ThumbsUp, title: 'Hospital Approved', desc: 'Used and recommended in over 50 leading maternity centers.' }
-            ].map((card) => {
-              const Icon = card.icon;
-              return (
-                <div key={card.title} className="bg-[#faf9f6] p-8 rounded-[2rem] flex flex-col items-center text-center shadow-sm border border-black/5">
-                  <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-4 shadow-sm border border-black/5">
-                    <Icon size={24} className="text-[#557161]" />
-                  </div>
-                  <h4 className="font-bold text-[15px] mb-2">{card.title}</h4>
-                  <p className="text-[12.5px] text-[#6f7a74] leading-relaxed">{card.desc}</p>
-                </div>
-              );
-            })}
+          <div className="flex gap-4 items-start">
+            <div className="w-8 h-8 rounded-full bg-[#faf9f6] flex items-center justify-center shrink-0 mt-1">
+              <Award size={18} className="text-[#557161]" />
+            </div>
+            <div>
+              <h4 className="font-bold text-[14px] text-[#1a1c1a] mb-1">Quality Assured</h4>
+              <p className="text-[12px] text-[#6f7a74]">Meets or exceeds all international safety standards.</p>
+            </div>
           </div>
         </section>
       </main>
@@ -206,7 +321,7 @@ export default function ProductPage() {
             whileTap={{ scale: 0.97 }}
             className="flex-1 bg-[#557161] hover:bg-[#496459] text-white py-5 rounded-2xl font-bold text-[12px] uppercase tracking-[0.15em] shadow-lg flex items-center justify-center gap-2"
           >
-            <Sparkles size={16} /> ADD TO CART — ₹320.00
+            <Sparkles size={16} /> ADD TO CART — {formatPrice(product.price.selling_price, product.price.currency)}
           </motion.button>
         </div>
       </footer>

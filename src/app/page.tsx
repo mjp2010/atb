@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { motion } from 'motion/react';
 import { Sparkles, Calendar, HeartPulse } from 'lucide-react';
-import { ThemeToggle } from '@/components/ThemeToggle';
 import Image from 'next/image';
 
 const features = [
@@ -34,7 +33,6 @@ export default function WelcomePage() {
  <span className="font-headline italic text-2xl text-atb-primary tracking-tight">
  All Things Baby
  </span>
- <ThemeToggle />
  </div>
  </header>
 

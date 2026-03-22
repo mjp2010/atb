@@ -3,13 +3,19 @@
 import { useRouter } from 'next/navigation';
 import { motion } from 'motion/react';
 import { Sparkles, Check, ArrowLeft, Star } from 'lucide-react';
-import { ThemeToggle } from '@/components/ThemeToggle';
 
-const perks = [
+const premiumPerks = [
  'Unlimited 24/7 AI Coach access',
  'Personalized daily milestone tracking',
  '1 free video consult per month',
  'Exclusive discounts in the Curated Shop',
+];
+
+const freePerks = [
+ 'Pregnancy Tracker',
+ 'Baby Tracker',
+ 'Kick Counter',
+ 'Limited Parenting articles',
 ];
 
 export default function PremiumPage() {
@@ -26,7 +32,6 @@ export default function PremiumPage() {
  >
  <ArrowLeft size={20} />
  </motion.button>
- <ThemeToggle />
  </header>
 
  <main className="flex-1 px-6 py-8 max-w-2xl mx-auto w-full space-y-10">
@@ -55,7 +60,7 @@ export default function PremiumPage() {
 
  {/* Plans */}
  <section className="space-y-4">
- {/* Annual - featured */}
+ {/* Premium Plan - featured */}
  <motion.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
@@ -65,14 +70,14 @@ export default function PremiumPage() {
  <div className="absolute top-0 right-0 bg-atb-primary text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl-xl">
  Most Popular
  </div>
- <h3 className="font-headline text-2xl text-atb-on-surface mb-2">Annual Plan</h3>
+ <h3 className="font-headline text-2xl text-atb-on-surface mb-2">Premium Plan</h3>
  <div className="flex items-baseline gap-1 mb-4">
- <span className="font-headline text-4xl text-atb-primary">₹99</span>
- <span className="font-body text-sm text-atb-on-surface-variant">/year</span>
+ <span className="font-headline text-4xl text-atb-primary">₹10,000</span>
+ <span className="font-body text-sm text-atb-on-surface-variant">/ 3 Months</span>
  </div>
- <p className="font-label text-xs uppercase tracking-widest text-atb-secondary font-bold mb-6">Save 45% compared to monthly</p>
+ <p className="font-label text-xs uppercase tracking-widest text-atb-secondary font-bold mb-6">Everything in Free + Premium features</p>
  <ul className="space-y-4 mb-8">
- {perks.map((perk, i) => (
+ {premiumPerks.map((perk, i) => (
  <motion.li
  key={perk}
  initial={{ opacity: 0, x: -12 }}
@@ -96,23 +101,37 @@ export default function PremiumPage() {
  </motion.button>
  </motion.div>
 
- {/* Monthly */}
+ {/* Free Plan */}
  <motion.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.5, delay: 0.2 }}
- className="bg-atb-surface-low p-6 rounded-3xl text-center"
+ className="bg-atb-surface-low p-6 rounded-3xl"
  >
- <h3 className="font-headline text-xl text-atb-on-surface mb-2">Monthly Plan</h3>
- <div className="flex items-baseline justify-center gap-1 mb-4">
- <span className="font-headline text-2xl text-atb-on-surface">₹15</span>
- <span className="font-body text-sm text-atb-on-surface-variant">/month</span>
+ <div className="flex items-baseline gap-1 mb-4">
+ <span className="font-headline text-2xl text-atb-on-surface">Free Plan</span>
  </div>
+ <ul className="space-y-3 mb-6">
+ {freePerks.map((perk, i) => (
+ <motion.li
+ key={perk}
+ initial={{ opacity: 0, x: -12 }}
+ animate={{ opacity: 1, x: 0 }}
+ transition={{ delay: 0.3 + i * 0.05 }}
+ className="flex items-start gap-3"
+ >
+ <div className="w-5 h-5 rounded-full bg-atb-surface-container flex items-center justify-center text-atb-outline shrink-0 mt-0.5">
+ <Check size={12} strokeWidth={3} />
+ </div>
+ <span className="font-body text-sm text-atb-on-surface">{perk}</span>
+ </motion.li>
+ ))}
+ </ul>
  <motion.button
  whileTap={{ scale: 0.97 }}
  className="w-full py-3 bg-atb-surface-container text-atb-on-surface font-bold rounded-full hover:bg-atb-surface-high transition-colors"
  >
- Choose Monthly
+ Get Started Free
  </motion.button>
  </motion.div>
  </section>

@@ -8,13 +8,7 @@ import {
   Snowflake, Quote, MessageCircle
 } from 'lucide-react';
 import Image from 'next/image';
-
-const moreProducts = [
-  { img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDotyuXVeVC7vrMLDPFU1og1FfWSvc4Pi51DHfcCBaSZDZbaKnnE8bdliy5spgLZjrI-MHJLdVbNw2gXskM1WLOq4NbnMosT7xQtcmC5it1taBEu8d9kkMfUwdUNJ-xQhRqnhD0Tbj5F2XubxHoXy-aqc37rvlK3lHIlTpYJFhJhgNqPFdCFLvTKG86WE_zK33SmAhP0okhExAG7Ouvi6a6gXtisADTTM0VcL6ZIF6TJkRqT_tg2Pd6YmT3w_PjAzy-6-0eiD6ypX4', cat: 'PLAY', name: 'Wooden Activity Gym', price: '₹45.00' },
-  { img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCRB_LwA53a4aj5U2qqjwsw4fifCgyZA4_0-LUbLUnu8ZzCjFB5BfHwrqUdTHBTwqwPqhfGILXNfUUiQolhkseGr4KaYfltJJmgeFfs8TBkF6sbSVF-yC2DAa2iy0dETcItO97FWeoKLH4Jv1dfUEvbFbzeyNLw88pO81jukwFOvSDDdwML0xk3xd1f-xMczHhkRQok_VAnI83CLvn0i7ea5Q7SSa-jj5tvwm9oTeBBm0Rb9mmjaXgaKMg5Ck4ZQSGqqEW-r-NG0GU', cat: 'VISUALS', name: 'Art Cards for Baby', price: '₹15.00' },
-  { img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD2cW4l6ejgU61pkOPheZuZlObSgdDWigOfOSPXtZwOHXgx-Tv0DbZSztxPIp-ocBGtvW1rgQWWHL8peMcmBYFi3E_gIlFlnYwXCYOxmIRbRl8eZnluw-6gNoVqR2Gu415Itopv-GRM2QR8A2VmRS8GMIBZpI_ppFj3C6Vy3TH35X06mUfxs-UvJFu7wNMkOHYVSazFx9ANoLkbLYqs1djmkW66GoQd8BVJPfwxUzznF2kWw8agjR-0uAx4vAUbExOjjYimZTGZNSI', cat: 'SLEEP', name: 'Organic Cotton Swaddle', price: '₹32.00' },
-  { img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBjOwKRqadUQHLaAVWEKTRDWeWZI7MHSg9LvvqJe-4A--uFpmHFGVDNwcY0wrthE8TBe17IunnTeUPSQoNq9YaTMrC-zV_9wN-DaKVfR91Orb_MH2ZPXmkvQD0BdllpH3JlhOQKA6ibZHVyB9U0fkUOW45ve3guJJI3rPrKwgLKHj74OGUqsoHXg9DbjHxBYvucGl8QrJqH173ZXfE6Npt9oIDy0bP4ybKRadGsmi4MeWwu2wYDDVfuvmDbuO6olclOvVQ6i981uXM', cat: 'CARE', name: 'Calming Lavender Balm', price: '₹12.00' },
-];
+import { getAllProducts } from '@/data/products';
 
 const devReasons = [
   { icon: Hand, title: 'Palmar Grasp Milestone', body: 'At 4 months, babies begin using their whole hand to grab objects. These toys feature large, easy-to-grip edges perfect for this emerging skill.' },
@@ -50,13 +44,13 @@ export default function ShopPage() {
           </div>
         </section>
 
-        {/* Primary Product: Teething Ring */}
+        {/* Primary Product: Featured Product */}
         <section className="px-4 mb-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            onClick={() => router.push('/product')}
+            onClick={() => router.push('/product?slug=safety-first-teething-ring')}
             className="bg-[#f9f8f6] rounded-[2.5rem] p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] ring-1 ring-[#e3e2e0] cursor-pointer"
           >
             <div className="flex flex-wrap gap-2 mb-6">
@@ -121,12 +115,13 @@ export default function ShopPage() {
           </motion.div>
         </section>
 
-        {/* Secondary Product: Organic Texture Book */}
+        {/* Secondary Product: Featured Product 2 */}
         <section className="px-4 mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
+            onClick={() => router.push('/product?slug=heirloom-organic-swaddle')}
             className="bg-[#ecede8] rounded-[2rem] p-6 relative flex flex-col items-center group cursor-pointer hover:shadow-md transition-all shadow-sm ring-1 ring-[#e3e2e0]"
           >
             <div className="absolute top-4 right-4 bg-white/60 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center gap-1 ring-1 ring-black/5 z-10">
@@ -139,9 +134,9 @@ export default function ShopPage() {
             </div>
 
             <div className="w-full text-left">
-              <h3 className="font-headline text-[24px] text-[#2f493b] mb-3">Organic Texture Book</h3>
+              <h3 className="font-headline text-[24px] text-[#2f493b] mb-3">Heirloom Organic Swaddle</h3>
               <p className="text-[13px] text-[#6f7a74] leading-relaxed mb-5 pr-4">
-                Stimulate visual and tactile senses with high-contrast patterns for 3m+ focus.
+                GOTS Certified organic cotton for gentle sleep transitions. Premium quality for durability and sustainability.
               </p>
               <button className="flex items-center gap-2 font-label text-[9px] font-extrabold uppercase tracking-[0.15em] text-[#557161]">
                 VIEW DETAILS <ChevronRight size={12} strokeWidth={3} />
@@ -246,27 +241,31 @@ export default function ShopPage() {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            {moreProducts.map((p, i) => (
+            {getAllProducts().map((p) => (
               <motion.div
-                key={p.name}
+                key={p.id}
                 whileTap={{ scale: 0.98 }}
+                onClick={() => router.push(`/product?slug=${p.slug}`)}
                 className="bg-white rounded-[1.5rem] p-3 shadow-[0_2px_10px_rgba(0,0,0,0.02)] ring-1 ring-[#e3e2e0] cursor-pointer group hover:shadow-md transition-all"
               >
-                <div className="relative w-full aspect-[4/5] rounded-[1rem] bg-[#f9f8f6] mb-3 overflow-hidden">
-                  <Image alt={p.name} fill className="object-cover" src={p.img} sizes="200px" />
+                <div className="relative w-full aspect-square rounded-[1rem] bg-[#f9f8f6] mb-3 overflow-hidden">
+                  <Image alt={p.title} fill className="object-cover" src={p.main_image} sizes="200px" />
                 </div>
                 <div className="px-1">
-                  <span className="text-[8px] font-extrabold uppercase tracking-widest text-[#a55a4d] mb-1.5 block">
-                    {p.cat}
+                  <span className="text-[8px] font-extrabold uppercase tracking-widest text-[#557161] mb-1.5 block">
+                    {p.brand}
                   </span>
-                  <h4 className="font-bold text-[13px] text-[#1a1c1a] leading-snug mb-2 pr-2 truncate">
-                    {p.name}
+                  <h4 className="font-bold text-[13px] text-[#1a1c1a] leading-snug mb-2 pr-2 line-clamp-2">
+                    {p.title}
                   </h4>
                   <div className="flex justify-between items-center text-[12px] text-[#6f7a74]">
-                    <span>{p.price}</span>
-                    <button>
-                      <ArrowRight size={12} className="text-[#a55a4d]" />
-                    </button>
+                    <span className="font-bold text-[#1a1c1a]">
+                      {p.price.currency === 'USD' ? `₹${p.price.selling_price.toFixed(2)}` : `₹${p.price.selling_price}`}
+                    </span>
+                    <div className="flex items-center gap-0.5">
+                      <Star size={12} className="text-[#fbdac9]" fill="#fbdac9" />
+                      <span className="text-[10px]">{p.rating}</span>
+                    </div>
                   </div>
                 </div>
               </motion.div>

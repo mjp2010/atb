@@ -1,91 +1,55 @@
 'use client';
 
-import { Home, Calendar, Bot, ShoppingBag, BriefcaseMedical } from 'lucide-react';
-import { useRouter, usePathname } from 'next/navigation';
-import { motion, useScroll, useMotionValueEvent } from 'motion/react';
-import { useState, useEffect } from 'react';
-
-const navItems = [
-  { id: 'home', path: '/home', icon: Home, label: 'HOME' },
-  { id: 'timeline', path: '/timeline', icon: Calendar, label: 'TIMELINE' },
-  { id: 'aicoach', path: '/aicoach', icon: Bot, label: 'AI ASSISTANT' },
-  { id: 'shop', path: '/shop', icon: ShoppingBag, label: 'SHOP' },
-  { id: 'experts', path: '/experts', icon: BriefcaseMedical, label: 'EXPERTS', isSpecial: true },
-];
+import { usePathname, useRouter } from 'next/navigation';
+import { motion } from 'motion/react';
+import { Home, Zap, Users, MessageSquare } from 'lucide-react';
 
 export function BottomNav() {
-  const router = useRouter();
   const pathname = usePathname();
-  const { scrollY } = useScroll();
-  const [hidden, setHidden] = useState(false);
+  const router = useRouter();
 
-  // Don't show on specific utility/marketing/detail pages
-  const hideOnPaths = ['/', '/onboarding', '/product'];
-  if (hideOnPaths.includes(pathname)) return null;
+  // Hide bottom nav on root, onboarding and aicoach pages
+  if (pathname === '/' || pathname === '/onboarding' || pathname === '/aicoach') {
+    return null;
+  }
 
-  // Auto-hide on scroll down, show on scroll up
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() || 0;
-    if (latest > previous && latest > 50) {
-      setHidden(true);
-    } else {
-      setHidden(false);
-    }
-  });
-  
-  // Show after scrolling stops for a bit
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    const handleScroll = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => setHidden(false), 200);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      clearTimeout(timeoutId);
-    };
-  }, []);
+  const navItems = [
+    { icon: Home, label: 'Home', href: '/home', active: pathname === '/home' },
+    { icon: Zap, label: 'Timeline', href: '/timeline', active: pathname === '/timeline' },
+    { icon: Users, label: 'Shop', href: '/shop', active: pathname === '/shop' },
+    { icon: Users, label: 'Experts', href: '/experts', active: pathname === '/experts' },
+    { icon: MessageSquare, label: 'Parent-pal', href: '/aicoach', active: pathname === '/aicoach' },
+  ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none">
-      <div className="max-w-md mx-auto w-full px-0">
-        <motion.nav 
-          initial={{ y: 0 }}
-          animate={{ y: hidden ? 100 : 0 }}
-          transition={{ duration: 0.35, ease: 'easeInOut' }}
-          className="bg-white rounded-t-[32px] shadow-[0_-10px_40px_rgba(0,0,0,0.06)] flex items-end justify-between px-5 pb-5 pt-4 pointer-events-auto ring-1 ring-black/5"
-        >
-          {navItems.map((item) => {
-            const isActive = pathname === item.path;
-            const Icon = item.icon;
-
-            return (
-              <motion.button
-                key={item.id}
-                onClick={() => router.push(item.path)}
-                whileTap={{ scale: 0.9 }}
-                className="flex flex-col items-center justify-center gap-1.5 min-w-[3.5rem] py-1 focus:outline-none relative flex-1"
-                aria-label={item.label}
-              >
-                <div className={`transition-colors duration-200 ${isActive ? 'text-[#557161]' : 'text-[#8c9490]'}`}>
-                  <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
-                </div>
-                <span className={`font-label text-[8px] font-extrabold tracking-widest transition-colors duration-200 ${isActive ? 'text-[#557161]' : 'text-[#8c9490]'}`}>
-                  {item.label}
-                </span>
-                {isActive && (
-                  <motion.div 
-                    layoutId="nav-pill" 
-                    className="absolute -top-1 w-1 h-1 bg-[#557161] rounded-full"
-                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                  />
-                )}
-              </motion.button>
-            );
-          })}
-        </motion.nav>
+    <nav className="fixed bottom-0 left-0 right-0 bg-[#faf9f6] border-t border-black/5 backdrop-blur-md z-40">
+      <div className="max-w-md mx-auto flex items-center px-4 py-3">
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          return (
+            <motion.button
+              key={item.href}
+              onClick={() => {
+                // Pass current page as 'from' parameter when navigating to AI Assistant
+                if (item.href === '/aicoach') {
+                  router.push(`${item.href}?from=${pathname}`);
+                } else {
+                  router.push(item.href);
+                }
+              }}
+              whileTap={{ scale: 0.9 }}
+              className={`flex-1 flex flex-col items-center justify-center py-2 rounded-lg transition-colors ${
+                item.active
+                  ? 'text-[#557161] bg-[#e7eee9]'
+                  : 'text-[#8c9490] hover:text-[#557161]'
+              }`}
+            >
+              <Icon size={20} className="mb-1" />
+              <span className="text-[10px] font-bold uppercase tracking-widest">{item.label}</span>
+            </motion.button>
+          );
+        })}
       </div>
-    </div>
+    </nav>
   );
 }

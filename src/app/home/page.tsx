@@ -105,6 +105,7 @@ export default function HomePage() {
           </p>
           <motion.button 
             whileTap={{ scale: 0.96 }}
+            onClick={() => router.push('/timeline')}
             className="bg-[#e4e4e2] text-[#1a1c1a] px-8 py-3.5 rounded-full font-extrabold text-[10px] uppercase tracking-[0.2em] shadow-sm hover:bg-[#d8d8d5] transition-colors mb-10"
           >
             EXPLORE STAGE
@@ -144,6 +145,7 @@ export default function HomePage() {
               </p>
               <motion.button 
                 whileTap={{ scale: 0.96 }}
+                onClick={() => router.push('/premium')}
                 className="bg-white text-[#557161] px-10 py-4 rounded-full font-extrabold text-[10px] uppercase tracking-[0.2em] shadow-md hover:bg-slate-50 transition-colors"
               >
                 START 7-DAY FREE TRIAL
@@ -160,7 +162,7 @@ export default function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => router.push('/product')}
+            onClick={() => router.push('/product?slug=safety-first-teething-ring')}
             className="bg-[#f4f2ec] p-5 rounded-[2.2rem] flex gap-5 shadow-sm hover:shadow-md cursor-pointer transition-shadow ring-1 ring-[#e3e2e0]/50"
           >
             <div className="w-24 h-24 rounded-2xl bg-white shrink-0 relative shadow-sm flex items-center justify-center p-4 overflow-hidden ring-1 ring-black/5">

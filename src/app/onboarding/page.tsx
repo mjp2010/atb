@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, ArrowRight, Check, Bell, Sparkles } from 'lucide-react';
-import { ThemeToggle } from '@/components/ThemeToggle';
 import Image from 'next/image';
 
 const journeyOptions = [
@@ -52,7 +51,7 @@ export default function OnboardingPage() {
             <ArrowLeft size={24} />
           </motion.button>
           <div className="font-headline italic text-xl text-atb-primary">All Things Baby</div>
-          <ThemeToggle />
+          <div />
         </div>
       </header>
 

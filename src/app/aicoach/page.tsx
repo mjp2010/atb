@@ -1,8 +1,9 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { Bot, BadgeCheck, RotateCcw, CheckCircle2, ArrowRight, BookOpen, Send, Headset } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Bot, X, RotateCcw, CheckCircle2, ArrowRight, BookOpen, Send, Headset } from 'lucide-react';
 import Image from 'next/image';
+import { motion } from 'motion/react';
 
 const recentQuestions = [
   'Night wakings',
@@ -17,20 +18,29 @@ const suggestions = [
 
 export default function AICoachPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const previousPage = searchParams.get('from') || '/home';
 
   return (
-    <div className="min-h-screen bg-[#faf9f6] flex flex-col font-body text-atb-on-background pb-0">
-      <header className="flex items-center justify-between px-6 py-5 sticky top-0 z-40 bg-[#faf9f6] bg-opacity-95 backdrop-blur-sm">
+    <div className="min-h-screen bg-[#faf9f6] flex flex-col font-body text-atb-on-background">
+      <header className="sticky top-0 z-30 flex items-center justify-between px-6 py-5 bg-[#faf9f6] bg-opacity-95 backdrop-blur-sm">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-[#fbdac9] flex items-center justify-center overflow-hidden relative shadow-sm ring-1 ring-black/5">
             <Image alt="Aarav" fill className="object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbd3l7sVwlfakX6EdOnT65C3Nr4p16TNphTHnodjURipH0Uom6T_Exi7hgSv3YxD0uqwXhBqY4YCwaQbCdclqeRkdU90SDWs6N5hIhSSRNNV3FdhJuSZI5NIkUfNsKUYSBs0fk3-Dh4ljxhW0BmOBlDZU35UAQVcQb8F2MmKdlN8ANbIxv661qerQ67oJv7Sl5F58R2ZcpVQWOGBx7Aq7EceLsezJ51XQ_exGVtalUg1JF7ht5FnEXaV4ijWf2KmYUTLq7w37ksD4" sizes="40px" />
           </div>
           <h1 className="font-headline text-lg italic font-medium text-[#496459] tracking-tight">Aarav - 4 Months Old</h1>
         </div>
-        <BadgeCheck size={26} className="text-[#496459] hover:opacity-80 transition-opacity cursor-pointer flex-shrink-0" fill="currentColor" stroke="var(--color-background)" />
+        <motion.button
+          onClick={() => router.push(previousPage)}
+          whileTap={{ scale: 0.9 }}
+          className="text-[#496459] hover:opacity-60 transition-opacity flex-shrink-0"
+          aria-label="Close and return to previous page"
+        >
+          <X size={26} strokeWidth={2.5} />
+        </motion.button>
       </header>
 
-      <main className="max-w-md mx-auto w-full flex-grow flex flex-col relative pb-[280px]">
+      <main className="flex-1 overflow-y-auto max-w-md mx-auto w-full flex flex-col relative pb-6">
         
         {/* Title Area */}
         <section className="flex flex-col items-center mt-6 px-6">
@@ -161,9 +171,14 @@ export default function AICoachPage() {
           </div>
           
         </section>
-        
-        {/* Floating Input Area */}
-        <div className="fixed bottom-0 left-0 w-full flex justify-center pb-[104px] z-40 bg-gradient-to-t from-[#faf9f6] via-[#faf9f6]/95 to-transparent pt-32 pointer-events-none">
+
+        {/* Spacer for scrolling behind input */}
+        <div className="h-56"></div>
+
+      </main>
+
+      {/* Floating Input Area */}
+      <div className="fixed bottom-0 left-0 right-0 flex justify-center z-40 bg-gradient-to-t from-[#faf9f6] via-[#faf9f6]/95 to-transparent pt-8 pb-6 pointer-events-none">
           <div className="w-full max-w-md px-4 flex flex-col gap-4 pointer-events-auto">
             
             {/* Suggested Prompts */}
@@ -196,7 +211,6 @@ export default function AICoachPage() {
           </div>
         </div>
 
-      </main>
     </div>
   );
 }
