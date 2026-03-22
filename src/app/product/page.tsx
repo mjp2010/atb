@@ -1,13 +1,14 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, Heart, Share2, Star, Sparkles, AlertCircle, CheckCircle2, ShieldCheck, Award, ThumbsUp, Droplet, Zap } from 'lucide-react';
 import Image from 'next/image';
 import { getProductBySlug } from '@/data/products';
 import { useEffect, useState } from 'react';
 
-export default function ProductPage() {
+function ProductContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const productSlug = searchParams.get('slug') || 'heirloom-organic-swaddle';
@@ -326,6 +327,18 @@ export default function ProductPage() {
         </div>
       </footer>
     </div>
+  );
+}
+
+export default function ProductPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#faf9f6] flex items-center justify-center">
+        <p className="text-[#1a1c1a]">Loading...</p>
+      </div>
+    }>
+      <ProductContent />
+    </Suspense>
   );
 }
 

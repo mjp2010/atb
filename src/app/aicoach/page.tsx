@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import { Bot, X, RotateCcw, CheckCircle2, ArrowRight, BookOpen, Send, Headset } from 'lucide-react';
 import Image from 'next/image';
 import { motion } from 'motion/react';
@@ -16,7 +17,7 @@ const suggestions = [
   'Tummy time'
 ];
 
-export default function AICoachPage() {
+function AICoachContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const previousPage = searchParams.get('from') || '/home';
@@ -212,5 +213,13 @@ export default function AICoachPage() {
         </div>
 
     </div>
+    );
+}
+
+export default function AICoachPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#faf9f6] flex items-center justify-center">Loading...</div>}>
+      <AICoachContent />
+    </Suspense>
   );
 }
